@@ -3,266 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MaungDB v2.2.3 Documentation</title>
+    <title>MaungDB v2.2.4 Documentation</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/css/style_docs.css" />
 
 </head>
 <body>
-<style>
-    :root {
-    --primary: #f59e0b;       /* Maung Orange */
-    --primary-dark: #d97706;
-    --accent: #3b82f6;        /* Tech Blue */
-    --danger: #ef4444;
-    --success: #10b981;
-    
-    /* UI Colors */
-    --sidebar-bg: #0f172a;
-    --sidebar-text: #94a3b8;
-    --content-bg: #ffffff;
-    --border: #e2e8f0;
-    --text-main: #334155;
-    --text-heading: #0f172a;
-    
-    /* Code */
-    --code-bg: #1e293b;
-    --code-text: #e2e8f0;
-}
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; font-family: 'Inter', sans-serif; display: flex; height: 100vh; color: var(--text-main); overflow: hidden; }
-
-/* --- MOBILE TOGGLE --- */
-.mobile-menu-btn {
-    display: none; /* Hidden on desktop */
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 100;
-    background: var(--sidebar-bg);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 90;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-/* --- SIDEBAR NAVIGATION --- */
-aside {
-    width: 280px;
-    background: var(--sidebar-bg);
-    color: var(--sidebar-text);
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #1e293b;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-    z-index: 95;
-}
-
-.brand {
-    padding: 25px 20px;
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: #fff;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    letter-spacing: -0.5px;
-}
-
-.nav-scroll { flex: 1; overflow-y: auto; padding: 20px 0; }
-
-.nav-group { 
-    padding: 15px 25px 8px; 
-    font-size: 0.7rem; 
-    text-transform: uppercase; 
-    letter-spacing: 0.1em; 
-    font-weight: 700; 
-    color: var(--primary); 
-    opacity: 0.9;
-}
-
-.nav-item {
-    display: block;
-    padding: 8px 25px;
-    color: var(--sidebar-text);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: 0.2s;
-    border-left: 3px solid transparent;
-}
-
-.nav-item:hover, .nav-item.active {
-    background: rgba(255,255,255,0.05);
-    color: #fff;
-    border-left-color: var(--primary);
-}
-
-.nav-sub { padding-left: 40px; font-size: 0.85rem; }
-
-/* --- MAIN CONTENT --- */
-main { flex: 1; overflow-y: auto; background: var(--content-bg); position: relative; width: 100%; }
-
-.container { max-width: 960px; margin: 0 auto; padding: 50px 60px 100px; }
-
-/* Typography */
-h1 { font-size: 2.8rem; color: var(--text-heading); margin-bottom: 10px; letter-spacing: -1px; font-weight: 800; line-height: 1.2; }
-h2 { font-size: 2rem; color: var(--text-heading); margin-top: 60px; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; font-weight: 700; }
-h3 { font-size: 1.4rem; color: var(--text-heading); margin-top: 40px; margin-bottom: 15px; font-weight: 600; }
-h4 { font-size: 1.1rem; color: var(--text-heading); margin-top: 25px; margin-bottom: 10px; font-weight: 600; }
-p { line-height: 1.7; margin-bottom: 15px; font-size: 1rem; }
-
-strong { color: var(--text-heading); font-weight: 600; }
-
-/* UI Elements */
-.badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; vertical-align: middle; margin-left: 10px; }
-.badge-ent { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
-
-.info-box {
-    background: #f8fafc;
-    border-left: 4px solid var(--accent);
-    padding: 20px;
-    border-radius: 0 8px 8px 0;
-    margin: 20px 0;
-    font-size: 0.95rem;
-}
-
-.warn-box {
-    background: #fff7ed;
-    border-left: 4px solid var(--primary);
-    padding: 20px;
-    border-radius: 0 8px 8px 0;
-    margin: 20px 0;
-    color: #9a3412;
-}
-
-/* Diagrams / Architecture */
-.arch-diagram {
-    background: #f1f5f9;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px dashed #cbd5e1;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.8rem;
-    white-space: pre;
-    overflow-x: auto;
-    color: #475569;
-    margin: 20px 0;
-    line-height: 1.4;
-}
-
-/* Code Blocks */
-pre {
-    background: var(--code-bg);
-    color: var(--code-text);
-    padding: 20px;
-    border-radius: 8px;
-    overflow-x: auto;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
-    margin: 15px 0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-code {
-    font-family: 'Fira Code', monospace;
-    background: #f1f5f9;
-    color: #d97706;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.9em;
-}
-
-pre code { background: transparent; color: inherit; padding: 0; }
-
-/* Tables */
-table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 0.95rem; }
-th, td { text-align: left; padding: 12px 15px; border-bottom: 1px solid var(--border); }
-th { background: #f8fafc; font-weight: 600; color: var(--text-heading); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; }
-tr:hover td { background: #f8fafc; }
-
-/* Back Button */
-.back-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: var(--primary);
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-    text-decoration: none;
-    font-size: 1.5rem;
-    transition: 0.3s;
-    z-index: 100;
-}
-.back-btn:hover { transform: translateY(-3px); background: var(--primary-dark); }
-
-/* --- RESPONSIVE LOGIC --- */
-@media (max-width: 900px) {
-    .mobile-menu-btn { display: block; }
-    
-    aside {
-        position: fixed;
-        top: 0; left: 0; height: 100%;
-        transform: translateX(-100%); /* Hide Sidebar */
-        box-shadow: 4px 0 15px rgba(0,0,0,0.3);
-    }
-
-    aside.active {
-        transform: translateX(0); /* Show Sidebar */
-    }
-
-    .overlay.active {
-        display: block;
-        opacity: 1;
-    }
-
-    .container {
-        padding: 80px 20px 100px; /* More top padding for menu btn */
-    }
-    
-    h1 { font-size: 2rem; }
-}
-
-/* ... style lainnya ... */
-
-.responsive-logo {
-    max-width: 100%;       /* KUNCI: Gambar tidak akan melebihi lebar layar */
-    height: auto;          /* Menjaga rasio gambar agar tidak gepeng */
-    width: 700px;          /* Target ukuran di Desktop */
-    display: block;        /* Agar blok, supaya margin bekerja */
-    margin: 20px 0;        /* Jarak atas bawah */
-    border-radius: 8px;    /* Opsional: pemanis sudut */
-}
-
-/* Agar di HP gambar 100% mengikuti lebar container */
-@media (max-width: 768px) {
-    .responsive-logo {
-        width: 100%;
-    }
-}
-</style>
     <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
     <div class="overlay" onclick="toggleSidebar()"></div>
 
@@ -284,6 +31,10 @@ tr:hover td { background: #f8fafc; }
             <a href="#dml" class="nav-item" onclick="closeSidebar()">Manipulasi Data (CRUD)</a>
             <a href="#dql" class="nav-item" onclick="closeSidebar()">Query & Joins</a>
             <a href="#functions" class="nav-item" onclick="closeSidebar()">Fungsi & Agregasi</a>
+            
+            <div class="nav-group">Enterprise Features</div>
+            <a href="#transactions" class="nav-item" onclick="closeSidebar()">Transaksi (ACID)</a>
+            <a href="#indexing" class="nav-item" onclick="closeSidebar()">Indexing & Optimasi</a>
         </div>
     </aside>
 
@@ -291,22 +42,23 @@ tr:hover td { background: #f8fafc; }
         <div class="container">
             
             <section id="overview">
-                <h1>MaungDB  <span class="badge badge-ent">v2.2.3</span></h1>
-                <img src="https://febrd.github.io/maungdb-docs/logonya.png" alt="Logo MaungDB" class="responsive-logo">
+                <h1>MaungDB  <span class="badge badge-ent">v2.2.4</span></h1>
+                <img src="/public/assets/logonya.png" alt="Logo MaungDB" class="responsive-logo">
 
                 <p class="lead">
                     MaungDB adalah <strong>Database Management System (DBMS) Hybrid</strong> yang menggabungkan kesederhanaan penyimpanan berbasis dokumen (flat-file) dengan ketatnya integritas data relasional (RDBMS). 
                 </p>
                 <p>
-                    Dibangun menggunakan bahasa <strong>Go (Golang)</strong>, MaungDB menawarkan performa tinggi dengan bahasa kueri yang unik dan deklaratif berbasis Bahasa Sunda, menjadikannya sistem database yang "membumi" namun bertenaga .
+                    Dibangun menggunakan bahasa <strong>Go (Golang)</strong>, MaungDB menawarkan performa tinggi dengan bahasa kueri yang unik dan deklaratif berbasis Bahasa Sunda, menjadikannya sistem database yang "membumi" namun bertenaga.
                 </p>
 
                 <div class="info-box">
-                    <strong>Fitur Utama v2.2.3:</strong>
+                    <strong>Fitur Utama v2.2.4:</strong>
                     <ul>
+                        <li><strong>ACID Transactions (v2.2.3):</strong> Jaminan keamanan data dengan Write-Ahead Logging (WAL). Mendukung Commit & Rollback.</li>
+                        <li><strong>Indexing Engine (v2.2.4):</strong> Akses data secepat kilat (O(1)) menggunakan Hash Indexing dan Query Optimizer cerdas.</li>
                         <li><strong>Strict Schema Enforcement:</strong> Validasi data ketat saat insert/update menggunakan definisi skema terpusat.</li>
                         <li><strong>Constraint Engine:</strong> Dukungan penuh untuk Primary Key, Foreign Key (Relational Integrity), Unique, dan Not Null.</li>
-                        <li><strong>MaungQL:</strong> Bahasa query intuitif (DAMEL, SIMPEN, TINGALI) yang mudah dipelajari.</li>
                         <li><strong>Relational Power:</strong> Mendukung INNER, LEFT, dan RIGHT JOIN untuk analisis data kompleks.</li>
                     </ul>
                 </div>
@@ -321,28 +73,37 @@ tr:hover td { background: #f8fafc; }
                     MaungDB menggunakan pendekatan <strong>Hybrid Storage</strong>. Data disimpan dalam format teks yang dapat dibaca manusia (human-readable) namun dengan struktur biner yang terindeks secara logis.
                 </p>
                 <ul>
-                    <li><strong>File .mg (Data):</strong> Setiap tabel adalah satu file fisik. Baris data dipisahkan oleh newline (<code>\n</code>) dan kolom dipisahkan oleh pipe (<code>|</code>). Tidak ada header di file ini untuk efisiensi I/O dan append-only write.</li>
-                    <li><strong>File .schema (Metadata):</strong> Definisi struktur tabel, tipe data, dan constraint (PK/FK) disimpan terpisah dalam format custom text (contoh: <code>id:INT:PK|nama:STRING</code>).</li>
-                    <li><strong>Lokasi:</strong> Semua data tersimpan di folder <code>data/db_{nama_database}/</code>.</li>
+                    <li><strong>File .mg (Data):</strong> Setiap tabel adalah satu file fisik. Baris data dipisahkan oleh newline (<code>\n</code>) dan kolom dipisahkan oleh pipe (<code>|</code>).</li>
+                    <li><strong>File .idx (Index):</strong> File binary map (JSON structure) untuk mempercepat pencarian data tanpa scanning seluruh file.</li>
+                    <li><strong>File wal.log (Journal):</strong> Log transaksi untuk mencatat perubahan sementara sebelum ditulis permanen (Commit).</li>
                 </ul>
 
                 <h3>2. The Execution Pipeline</h3>
                 <p>Setiap query yang masuk (baik dari CLI maupun Web) melewati tahapan pipeline berikut:</p>
                 
                 <div class="arch-diagram">
-<div class="render-shell js-render-shell">
-      <div class="mermaid-view "><div class="mermaid"><svg id="diagram" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart" style="max-width: 588.1768188476562px;" viewBox="-40 -40 588.1768188476562 773.9403076171875" aria-roledescription="flowchart-v2" height="773.9403076171875" preserveAspectRatio="xMinYMin"><style>#diagram{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#ccc;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#diagram .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#diagram .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#diagram .error-icon{fill:#a44141;}#diagram .error-text{fill:#ddd;stroke:#ddd;}#diagram .edge-thickness-normal{stroke-width:1px;}#diagram .edge-thickness-thick{stroke-width:3.5px;}#diagram .edge-pattern-solid{stroke-dasharray:0;}#diagram .edge-thickness-invisible{stroke-width:0;fill:none;}#diagram .edge-pattern-dashed{stroke-dasharray:3;}#diagram .edge-pattern-dotted{stroke-dasharray:2;}#diagram .marker{fill:lightgrey;stroke:lightgrey;}#diagram .marker.cross{stroke:lightgrey;}#diagram svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#diagram p{margin:0;}#diagram .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#ccc;}#diagram .cluster-label text{fill:#F9FFFE;}#diagram .cluster-label span{color:#F9FFFE;}#diagram .cluster-label span p{background-color:transparent;}#diagram .label text,#diagram span{fill:#ccc;color:#ccc;}#diagram .node rect,#diagram .node circle,#diagram .node ellipse,#diagram .node polygon,#diagram .node path{fill:#1f2020;stroke:#ccc;stroke-width:1px;}#diagram .rough-node .label text,#diagram .node .label text,#diagram .image-shape .label,#diagram .icon-shape .label{text-anchor:middle;}#diagram .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#diagram .rough-node .label,#diagram .node .label,#diagram .image-shape .label,#diagram .icon-shape .label{text-align:center;}#diagram .node.clickable{cursor:pointer;}#diagram .root .anchor path{fill:lightgrey!important;stroke-width:0;stroke:lightgrey;}#diagram .arrowheadPath{fill:lightgrey;}#diagram .edgePath .path{stroke:lightgrey;stroke-width:2.0px;}#diagram .flowchart-link{stroke:lightgrey;fill:none;}#diagram .edgeLabel{background-color:hsl(0, 0%, 34.4117647059%);text-align:center;}#diagram .edgeLabel p{background-color:hsl(0, 0%, 34.4117647059%);}#diagram .edgeLabel rect{opacity:0.5;background-color:hsl(0, 0%, 34.4117647059%);fill:hsl(0, 0%, 34.4117647059%);}#diagram .labelBkg{background-color:rgba(87.75, 87.75, 87.75, 0.5);}#diagram .cluster rect{fill:hsl(180, 1.5873015873%, 28.3529411765%);stroke:rgba(255, 255, 255, 0.25);stroke-width:1px;}#diagram .cluster text{fill:#F9FFFE;}#diagram .cluster span{color:#F9FFFE;}#diagram div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(20, 1.5873015873%, 12.3529411765%);border:1px solid rgba(255, 255, 255, 0.25);border-radius:2px;pointer-events:none;z-index:100;}#diagram .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#ccc;}#diagram rect.text{fill:none;stroke-width:0;}#diagram .icon-shape,#diagram .image-shape{background-color:hsl(0, 0%, 34.4117647059%);text-align:center;}#diagram .icon-shape p,#diagram .image-shape p{background-color:hsl(0, 0%, 34.4117647059%);padding:2px;}#diagram .icon-shape rect,#diagram .image-shape rect{opacity:0.5;background-color:hsl(0, 0%, 34.4117647059%);fill:hsl(0, 0%, 34.4117647059%);}#diagram .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#diagram .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#diagram :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker id="diagram_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="diagram_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="diagram_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="diagram_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="diagram_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="diagram_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M181.249,61.991L181.249,66.158C181.249,70.325,181.249,78.658,181.249,86.325C181.249,93.991,181.249,100.991,181.249,104.491L181.249,107.991" id="L_Client_Server_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Client_Server_0" data-points="W3sieCI6MTgxLjI0OTI4NjY1MTYxMTMzLCJ5Ijo2MS45OTE0Nzc5NjYzMDg1OTR9LHsieCI6MTgxLjI0OTI4NjY1MTYxMTMzLCJ5Ijo4Ni45OTE0Nzc5NjYzMDg2fSx7IngiOjE4MS4yNDkyODY2NTE2MTEzMywieSI6MTExLjk5MTQ3Nzk2NjMwODZ9XQ==" marker-end="url(#diagram_flowchart-v2-pointEnd)"></path><path d="M181.249,165.983L181.249,170.15C181.249,174.316,181.249,182.65,181.249,190.316C181.249,197.983,181.249,204.983,181.249,208.483L181.249,211.983" id="L_Server_Parser_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Server_Parser_0" data-points="W3sieCI6MTgxLjI0OTI4NjY1MTYxMTMzLCJ5IjoxNjUuOTgyOTU1OTMyNjE3Mn0seyJ4IjoxODEuMjQ5Mjg2NjUxNjExMzMsInkiOjE5MC45ODI5NTU5MzI2MTcyfSx7IngiOjE4MS4yNDkyODY2NTE2MTEzMywieSI6MjE1Ljk4Mjk1NTkzMjYxNzJ9XQ==" marker-end="url(#diagram_flowchart-v2-pointEnd)"></path><path d="M181.249,269.974L181.249,274.141C181.249,278.308,181.249,286.641,181.249,294.308C181.249,301.974,181.249,308.974,181.249,312.474L181.249,315.974" id="L_Parser_Executor_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Parser_Executor_0" data-points="W3sieCI6MTgxLjI0OTI4NjY1MTYxMTMzLCJ5IjoyNjkuOTc0NDMzODk4OTI1OH0seyJ4IjoxODEuMjQ5Mjg2NjUxNjExMzMsInkiOjI5NC45NzQ0MzM4OTg5MjU4fSx7IngiOjE4MS4yNDkyODY2NTE2MTEzMywieSI6MzE5Ljk3NDQzMzg5ODkyNTh9XQ==" marker-end="url(#diagram_flowchart-v2-pointEnd)"></path><path d="M127.879,373.966L119.642,378.133C111.404,382.299,94.929,390.633,86.692,398.299C78.455,405.966,78.455,412.966,78.455,416.466L78.455,419.966" id="L_Executor_Auth_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Executor_Auth_0" data-points="W3sieCI6MTI3Ljg3OTE0MzM2ODQ1ODMzLCJ5IjozNzMuOTY1OTExODY1MjM0NH0seyJ4Ijo3OC40NTQ1NDQwNjczODI4MSwieSI6Mzk4Ljk2NTkxMTg2NTIzNDR9LHsieCI6NzguNDU0NTQ0MDY3MzgyODEsInkiOjQyMy45NjU5MTE4NjUyMzQ0fV0=" marker-end="url(#diagram_flowchart-v2-pointEnd)"></path><path d="M234.619,373.966L242.857,378.133C251.094,382.299,267.569,390.633,275.807,398.299C284.044,405.966,284.044,412.966,284.044,416.466L284.044,419.966" id="L_Executor_Engine_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Executor_Engine_0" data-points="W3sieCI6MjM0LjYxOTQyOTkzNDc2NDMzLCJ5IjozNzMuOTY1OTExODY1MjM0NH0seyJ4IjoyODQuMDQ0MDI5MjM1ODM5ODQsInkiOjM5OC45NjU5MTE4NjUyMzQ0fSx7IngiOjI4NC4wNDQwMjkyMzU4Mzk4NCwieSI6NDIzLjk2NTkxMTg2NTIzNDR9XQ==" marker-end="url(#diagram_flowchart-v2-pointEnd)"></path><path d="M284.044,477.957L284.044,482.124C284.044,486.291,284.044,494.624,284.044,502.291C284.044,509.957,284.044,516.957,284.044,520.457L284.044,523.957" id="L_Engine_DB_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_Engine_DB_0" data-points="W3sieCI6Mjg0LjA0NDAyOTIzNTgzOTg0LCJ5Ijo0NzcuOTU3Mzg5ODMxNTQyOTd9LHsieCI6Mjg0LjA0NDAyOTIzNTgzOTg0LCJ5Ijo1MDIuOTU3Mzg5ODMxNTQyOTd9LHsieCI6Mjg0LjA0NDAyOTIzNTgzOTg0LCJ5Ijo1MjcuOTU3Mzg5ODMxNTQzfV0=" marker-end="url(#diagram_flowchart-v2-pointEnd)"></path><path d="M221.562,581.949L211.918,586.116C202.275,590.282,182.987,598.616,173.343,606.282C163.7,613.949,163.7,620.949,163.7,624.449L163.7,627.949" id="L_DB_Table_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_DB_Table_0" data-points="W3sieCI6MjIxLjU2MjIyNDM1NzY5NjcsInkiOjU4MS45NDg4Njc3OTc4NTE2fSx7IngiOjE2My42OTk1Njk3MDIxNDg0NCwieSI6NjA2Ljk0ODg2Nzc5Nzg1MTZ9LHsieCI6MTYzLjY5OTU2OTcwMjE0ODQ0LCJ5Ijo2MzEuOTQ4ODY3Nzk3ODUxNn1d" marker-end="url(#diagram_flowchart-v2-pointEnd)"></path><path d="M346.526,581.949L356.17,586.116C365.813,590.282,385.101,598.616,394.745,606.282C404.388,613.949,404.388,620.949,404.388,624.449L404.388,627.949" id="L_DB_Schema_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_DB_Schema_0" data-points="W3sieCI6MzQ2LjUyNTgzNDExMzk4Mjk3LCJ5Ijo1ODEuOTQ4ODY3Nzk3ODUxNn0seyJ4Ijo0MDQuMzg4NDg4NzY5NTMxMjUsInkiOjYwNi45NDg4Njc3OTc4NTE2fSx7IngiOjQwNC4zODg0ODg3Njk1MzEyNSwieSI6NjMxLjk0ODg2Nzc5Nzg1MTZ9XQ==" marker-end="url(#diagram_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g class="edgeLabel"><g class="label" data-id="L_Client_Server_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_Server_Parser_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_Parser_Executor_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_Executor_Auth_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_Executor_Engine_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_Engine_DB_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_DB_Table_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g class="label" data-id="L_DB_Schema_0" transform="translate(0, 0)"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g class="node default" id="flowchart-Client-0" transform="translate(181.24928665161133, 34.9957389831543)"><rect class="basic label-container" style="" x="-75.63209533691406" y="-26.99573802947998" width="151.26419067382812" height="53.99147605895996"></rect><g class="label" style="" transform="translate(-45.63209533691406, -11.99573802947998)"><rect></rect><foreignObject width="91.26419067382812" height="23.99147605895996"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>CLI / Web UI</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-Server-1" transform="translate(181.24928665161133, 138.9872169494629)"><rect class="basic label-container" style="" x="-91.34232711791992" y="-26.99573802947998" width="182.68465423583984" height="53.99147605895996"></rect><g class="label" style="" transform="translate(-61.34232711791992, -11.99573802947998)"><rect></rect><foreignObject width="122.68465423583984" height="23.99147605895996"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>MaungDB Server</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-Parser-3" transform="translate(181.24928665161133, 242.97869491577148)"><rect class="basic label-container" style="" x="-90.60369110107422" y="-26.99573802947998" width="181.20738220214844" height="53.99147605895996"></rect><g class="label" style="" transform="translate(-60.60369110107422, -11.99573802947998)"><rect></rect><foreignObject width="121.20738220214844" height="23.99147605895996"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>MaungQL Parser</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-Executor-5" transform="translate(181.24928665161133, 346.9701728820801)"><rect class="basic label-container" style="" x="-85.56107711791992" y="-26.99573802947998" width="171.12215423583984" height="53.99147605895996"></rect><g class="label" style="" transform="translate(-55.56107711791992, -11.99573802947998)"><rect></rect><foreignObject width="111.12215423583984" height="23.99147605895996"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Query Executor</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-Auth-7" transform="translate(78.45454406738281, 450.9616508483887)"><rect class="basic label-container" style="" x="-70.45454406738281" y="-26.99573802947998" width="140.90908813476562" height="53.99147605895996"></rect><g class="label" style="" transform="translate(-40.45454406738281, -11.99573802947998)"><rect></rect><foreignObject width="80.90908813476562" height="23.99147605895996"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>RBAC Auth</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-Engine-9" transform="translate(284.04402923583984, 450.9616508483887)"><rect class="basic label-container" style="" x="-85.13494110107422" y="-26.99573802947998" width="170.26988220214844" height="53.99147605895996"></rect><g class="label" style="" transform="translate(-55.13494110107422, -11.99573802947998)"><rect></rect><foreignObject width="110.26988220214844" height="23.99147605895996"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Storage Engine</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-DB-11" transform="translate(284.04402923583984, 554.9531288146973)"><rect class="basic label-container" style="" x="-89.12641906738281" y="-26.99573802947998" width="178.25283813476562" height="53.99147605895996"></rect><g class="label" style="" transform="translate(-59.12641906738281, -11.99573802947998)"><rect></rect><foreignObject width="118.25283813476562" height="23.99147605895996"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>Database Folder</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-Table-13" transform="translate(163.69956970214844, 658.9446067810059)"><rect class="basic label-container" style="" x="-94.90056610107422" y="-26.99573802947998" width="189.80113220214844" height="53.99147605895996"></rect><g class="label" style="" transform="translate(-64.90056610107422, -11.99573802947998)"><rect></rect><foreignObject width="129.80113220214844" height="23.99147605895996"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>.maung Data Files</p></span></div></foreignObject></g></g><g class="node default" id="flowchart-Schema-15" transform="translate(404.38848876953125, 658.9446067810059)"><rect class="basic label-container" style="" x="-95.7883529663086" y="-26.99573802947998" width="191.5767059326172" height="53.99147605895996"></rect><g class="label" style="" transform="translate(-65.7883529663086, -11.99573802947998)"><rect></rect><foreignObject width="131.5767059326172" height="23.99147605895996"><div xmlns="http://www.w3.org/1999/xhtml" style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"><span class="nodeLabel"><p>.schema Definition</p></span></div></foreignObject></g></g></g></g></g></svg></div></div>
-    </div>
+[CLIENT] (Web/CLI) 
+   │  Mengirim Query String
+   ▼
+[PARSER] 
+   │  Menerjemahkan teks "TINGALI..." menjadi AST.
+   │  Normalisasi Query (Auto-spacing operator).
+   ▼
+[EXECUTOR & OPTIMIZER] 
+   │  Otak utama.
+   │
+   ├── [TX MANAGER] ──▶ Cek sesi transaksi (MIMITIAN). Jika aktif, tulis ke WAL.
+   │
+   ├── [INDEXING ENGINE] ──▶ Cek ketersediaan file .idx.
+   │   └── Jika ada query `WHERE col=val`, gunakan Index Scan (O(1)).
+   │
+   ├── [SCHEMA LOADER] ──▶ Membaca definisi tabel & constraint.
+   │
+   ▼
+[STORAGE LAYER] 
+   │  Write: Tulis ke file .mg (jika Commit).
+   │  Read: Baca dari file .mg (jika Full Scan) atau lompat via Index.
                 </div>
-
-                <h3>3. Validator (Polisi Data)</h3>
-                <p>
-                    Ini adalah fitur unggulan versi . Sebelum data ditulis ke disk (pada perintah <code>SIMPEN</code> atau <code>OMEAN</code>), Validator akan melakukan <strong>Deep Inspection</strong>:
-                </p>
-                <ul>
-                    <li><strong>PK Check:</strong> Melakukan scan tabel target untuk memastikan ID belum ada.</li>
-                    <li><strong>FK Check:</strong> Jika kolom adalah Foreign Key, sistem akan me-load tabel referensi dan memastikan ID induk ada. Fitur ini bersifat <em>case-insensitive</em> pada nama tabel dan kolom untuk fleksibilitas.</li>
-                </ul>
             </section>
 
             <section id="security">
@@ -374,10 +135,6 @@ tr:hover td { background: #f8fafc; }
                         </td>
                     </tr>
                 </table>
-
-                <div class="warn-box">
-                    <strong>Catatan Keamanan:</strong> Password user disimpan menggunakan hash yang aman di sistem file internal. File konfigurasi user tidak boleh diedit secara manual (gunakan perintah CLI).
-                </div>
             </section>
 
             <section id="cli">
@@ -541,6 +298,77 @@ GABUNG divisi DINA karyawan.id_divisi = divisi.id</pre>
 // Contoh Analitik Gaji: Total Pegawai, Rata-rata Gaji, Gaji Tertinggi
 TINGALI JUMLAH(), RATA(gaji), PANGGEDENA(gaji) TI karyawan</pre>
             </section>
+            
+            <section id="transactions">
+                <h2>🔐 Transaksi Data (ACID) <span class="badge">v2.2.3</span></h2>
+                <p>
+                    Fitur ini menjamin integritas data dengan konsep <strong>All-or-Nothing</strong>. Menggunakan Write-Ahead Logging (WAL), perubahan data tidak akan ditulis ke disk sebelum dikonfirmasi (Commit).
+                </p>
+
+                <h3>MIMITIAN (Begin Transaction)</h3>
+                <p>Memulai sesi transaksi. Semua perintah <code>SIMPEN</code>, <code>OMEAN</code>, atau <code>MICEUN</code> setelah perintah ini akan ditampung di memori sementara (WAL Buffer).</p>
+
+                <h3>JADIKEUN (Commit)</h3>
+                <p>Menyimpan permanen semua perubahan yang tertampung di memori ke dalam file fisik database.</p>
+
+                <h3>BATALKEUN (Rollback)</h3>
+                <p>Membatalkan semua perubahan yang belum di-commit. Data akan kembali ke kondisi semula sebelum <code>MIMITIAN</code>.</p>
+
+                <h4>Contoh Skenario: Transfer Saldo</h4>
+<pre>
+// 1. Mulai Transaksi
+MIMITIAN
+
+// 2. Potong saldo pengirim (Belum tersimpan permanen)
+OMEAN nasabah JADI saldo=400000 DIMANA id=101
+
+// 3. Tambah saldo penerima (Belum tersimpan permanen)
+OMEAN nasabah JADI saldo=600000 DIMANA id=102
+
+// 4. Jika ada error, user bisa ketik: BATALKEUN
+// 5. Jika yakin, simpan permanen:
+JADIKEUN
+</pre>
+                <div class="info-box">
+                    <strong>Catatan:</strong> Selama transaksi berlangsung, user lain mungkin tidak melihat perubahan data sampai Anda melakukan <code>JADIKEUN</code> (Isolation Level).
+                </div>
+            </section>
+
+            <section id="indexing">
+                <h2>⚡ Indexing & Optimasi <span class="badge">v2.2.4</span></h2>
+                <p>
+                    Fitur ini dirancang untuk mengatasi lambatnya pencarian data pada tabel besar (Full Table Scan). Dengan Indexing, MaungDB membuat peta pintas (Hash Map) untuk menemukan baris data secara instan (O(1)).
+                </p>
+
+                <h3>TANDAIN (Create Index)</h3>
+                <p>
+                    Membuat file index (<code>.idx</code>) pada kolom tertentu. 
+                    <br><em>Sinonim: <code>TANDAAN</code>, <code>TAWISAN</code>.</em>
+                </p>
+                <div class="syntax-box">
+                    <code>TANDAIN &lt;nama_tabel&gt; DINA &lt;nama_kolom&gt;</code>
+                </div>
+
+                <h4>Cara Kerja:</h4>
+                <ol>
+                    <li>Saat index dibuat, sistem memetakan nilai kolom ke Primary Key.</li>
+                    <li>Ketika Anda menjalankan <code>SIMPEN</code>, index otomatis diperbarui di background (Async).</li>
+                    <li>Ketika Anda menjalankan <code>TINGALI ... DIMANA kolom=nilai</code>, Optimizer akan otomatis menggunakan index tersebut.</li>
+                </ol>
+
+                <h4>Contoh Penggunaan:</h4>
+<pre>
+// 1. Buat Index pada kolom 'divisi' di tabel 'karyawan'
+TANDAIN karyawan DINA divisi
+
+// 2. Lakukan Query
+TINGALI * TI karyawan DIMANA divisi=IT
+</pre>
+                <p>
+                    Jika optimasi berhasil, pada log server/console akan muncul pesan:<br>
+                    <code>⚡ [OPTIMIZER] Index Scan on table 'karyawan', column 'divisi'</code>
+                </p>
+            </section>
 
             <footer style="margin-top: 100px; padding-top: 30px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; display: flex; justify-content: space-between;">
                 <div>
@@ -548,14 +376,15 @@ TINGALI JUMLAH(), RATA(gaji), PANGGEDENA(gaji) TI karyawan</pre>
                     Made with ❤️ & ☕ in Bandung, West Java.
                 </div>
                 <div style="text-align: right;">
-                    Documentation v2.2.3<br>
-                     Edition
+                    Documentation v2.2.4<br>
+                    Enterprise Edition
                 </div>
             </footer>
 
         </div>
     </main>
 
+    <a href="/public/app.html" class="back-btn" title="Back to Maung Studio">←</a>
 
     <script>
         function toggleSidebar() {
@@ -566,7 +395,6 @@ TINGALI JUMLAH(), RATA(gaji), PANGGEDENA(gaji) TI karyawan</pre>
         }
 
         function closeSidebar() {
-            // Hanya jalankan jika di mode mobile
             if (window.innerWidth <= 900) {
                 const sidebar = document.getElementById('sidebar');
                 const overlay = document.querySelector('.overlay');
